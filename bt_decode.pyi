@@ -94,9 +94,9 @@ class NeuronInfoLite:
     stake: List[
         Tuple[bytes, int]
     ]  # map of coldkey to stake on this neuron/hotkey (includes delegations)
-    total_stake: float
-    alpha_stake: float
-    tao_stake: float
+    total_stake: int
+    alpha_stake: int
+    tao_stake: int
     rank: int
     emission: int
     incentive: int
