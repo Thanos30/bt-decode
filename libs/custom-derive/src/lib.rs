@@ -2,6 +2,7 @@ use proc_macro::TokenStream;
 use proc_macro2::TokenStream as TokenStream2;
 use quote::quote;
 use syn::{parse::Nothing, parse2, parse_quote, Error, ItemImpl, Result};
+use log::{debug, error};
 
 /// Automatically adds `py_decode` and `py_decode_vec` methods to a struct's inherent impl block,
 /// making them available as Python methods via `pyo3`.
@@ -62,8 +63,17 @@ fn pydecode_impl(attr: TokenStream2, tokens: TokenStream2) -> Result<TokenStream
         #[pyo3(name = "decode_vec")]
         #[staticmethod]
         fn py_decode_vec(encoded: &[u8]) -> Vec<Self> {
-            Vec::<#struct_name>::decode(&mut &encoded[..])
-                .expect(&format!("Failed to decode Vec<{}>", #struct_name_str))
+            log::debug!("Decoding Vec<{}> from encoded data: {:?}", #struct_name_str, encoded);
+            match Vec::<#struct_name>::decode(&mut &encoded[..]) {
+                Ok(decoded) => {
+                    log::debug!("Decoded Vec<{}> successfully: {:?}", #struct_name_str, decoded);
+                    decoded
+                }
+                Err(err) => {
+                    log::error!("Failed to decode Vec<{}>: {}", #struct_name_str, err);
+                    panic!("Failed to decode Vec<{}>: {}", #struct_name_str, err);
+                }
+            }
         }
     });
 
