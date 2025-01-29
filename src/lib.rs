@@ -266,6 +266,41 @@ mod bt_decode {
     #[pymethods]
     impl SubnetHyperparams {}
 
+    #[pyclass(name = "SubnetState", get_all)]
+    #[derive(Decode, Encode, Clone, Debug)]
+    pub struct SubnetState {
+        netuid: Compact<u16>,
+        hotkeys: Vec<T::AccountId>,
+        coldkeys: Vec<T::AccountId>,
+        active: Vec<bool>,
+        validator_permit: Vec<bool>,
+        pruning_score: Vec<Compact<u16>>,
+        last_update: Vec<Compact<u64>>,
+        emission: Vec<Compact<u64>>,
+        dividends: Vec<Compact<u16>>,
+        incentives: Vec<Compact<u16>>,
+        consensus: Vec<Compact<u16>>,
+        trust: Vec<Compact<u16>>,
+        rank: Vec<Compact<u16>>,
+        block_at_registration: Vec<Compact<u64>>,
+        alpha_stake: Vec<Compact<u64>>,
+        tao_stake: Vec<Compact<u64>>,
+        total_stake: Vec<Compact<u64>>,
+        emission_history: Vec<Vec<Compact<u64>>>,
+        // identities: Vec<ChainIdentityOf>,
+        // tao_stake: Compact<u64>,
+        // incentive: Compact<u16>,
+        // consensus: Compact<u16>,
+        // trust: Compact<u16>,
+        // validator_trust: Compact<u16>,
+        // dividends: Compact<u16>,
+        // // has no weights or bonds
+}
+
+    #[pydecode]
+    #[pymethods]
+    impl SubnetState {}
+
     #[pyclass(get_all)]
     #[derive(Decode, Encode, Clone, Debug)]
     struct StakeInfo {
