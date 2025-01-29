@@ -242,6 +242,36 @@ class SubnetHyperparameters:
     def decode_vec(encoded: bytes) -> List["SubnetHyperparameters"]:
         pass
 
+class SubnetState:
+    netuid: int,
+    hotkeys: List[bytes],
+    coldkeys: List[bytes],
+    active: List[bool],
+    validator_permit: List[bool],
+    pruning_score:List[int],
+    last_update: List[int],
+    emission: List[int],
+    dividends: List[int],
+    incentives: List[int],
+    consensus: List[int],
+    trust: List[int],
+    rank: List[int],
+    block_at_registration: List[int],
+    alpha_stake: List[int],
+    tao_stake: List[int],
+    total_stake: List[int],
+    emission_history: List[List[int]],
+
+    @staticmethod
+    def decode(encoded: bytes) -> "SubnetState":
+        pass
+    @staticmethod
+    def decode_option(encoded: bytes) -> Optional["SubnetState"]:
+        pass
+    @staticmethod
+    def decode_vec(encoded: bytes) -> List["SubnetState"]:
+        pass
+
 class StakeInfo:
     hotkey: bytes
     coldkey: bytes
