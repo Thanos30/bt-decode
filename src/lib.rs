@@ -270,8 +270,8 @@ mod bt_decode {
     #[derive(Decode, Encode, Clone, Debug)]
     pub struct SubnetState {
         netuid: Compact<u16>,
-        hotkeys: Vec<T::AccountId>,
-        coldkeys: Vec<T::AccountId>,
+        hotkeys: Vec<AccountId>,
+        coldkeys: Vec<AccountId>,
         active: Vec<bool>,
         validator_permit: Vec<bool>,
         pruning_score: Vec<Compact<u16>>,
