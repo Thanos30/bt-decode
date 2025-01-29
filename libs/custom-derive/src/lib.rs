@@ -62,17 +62,8 @@ fn pydecode_impl(attr: TokenStream2, tokens: TokenStream2) -> Result<TokenStream
         #[pyo3(name = "decode_vec")]
         #[staticmethod]
         fn py_decode_vec(encoded: &[u8]) -> Vec<Self> {
-            log::debug!("Decoding Vec<{}> from encoded data: {:?}", #struct_name_str, encoded);
-            match Vec::<#struct_name>::decode(&mut &encoded[..]) {
-                Ok(decoded) => {
-                    log::debug!("Decoded Vec<{}> successfully: {:?}", #struct_name_str, decoded);
-                    decoded
-                }
-                Err(err) => {
-                    log::error!("Failed to decode Vec<{}>: {}", #struct_name_str, err);
-                    panic!("Failed to decode Vec<{}>: {}", #struct_name_str, err);
-                }
-            }
+            Vec::<#struct_name>::decode(&mut &encoded[..])
+                .expect(&format!("Failed to decode Vec<{}>", #struct_name_str))
         }
     });
 
